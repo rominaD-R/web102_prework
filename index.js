@@ -142,6 +142,7 @@ function showAllGames() {
 const unfundedBtn = document.getElementById("unfunded-btn");
 const fundedBtn = document.getElementById("funded-btn");
 const allBtn = document.getElementById("all-btn");
+const searchBtn = document.getElementById("search-btn");
 
 // add event listeners with the correct functions to each button
 unfundedBtn.addEventListener("click", filterUnfundedOnly);
@@ -197,3 +198,21 @@ firstGameContainer.append(topPledgedElement);
 let secondPledgedElement = document.createElement("p");
 secondPledgedElement.innerHTML = secondPledged.name;
 secondGameContainer.append(secondPledgedElement);
+
+function searchGame() {
+    deleteChildElements(gamesContainer);
+
+    let searchedItem = document.getElementById("search").value.toUpperCase();
+
+    let searchedGame = GAMES_JSON.filter ( (game) => {
+        let gamesName = game.name.toUpperCase();
+        return gamesName.includes(searchedItem);
+    });
+
+    // use the function we previously created to add the unfunded games to the DOM
+    addGamesToPage(searchedGame);
+
+}
+
+searchBtn.addEventListener("click", searchGame);
+
